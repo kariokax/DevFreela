@@ -8,7 +8,7 @@ namespace DevFreela.Application.Commands.CreateProject
     {
         public Task<int> Handle(CreateProjectCommand request, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            throw new System.NotImplementedException(); 
         }
     }
 }
