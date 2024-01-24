@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using DevFreela.Core.Enums;
 
 namespace DevFreela.Application.ViewModels
 {
     public class ProjectDetailsViewModel
     {
-        public ProjectDetailsViewModel(int id, string title, string description, decimal totalCost, DateTime? startedAt, DateTime? finishedAt, string clientFullName, string freelancerFullName)
+        public ProjectDetailsViewModel(int id, string title, string description, decimal totalCost, DateTime? startedAt, DateTime? finishedAt, string clientFullName, string freelancerFullName, ProjectStatusEnum status)
         {
             Id = id;
             Title = title;
@@ -16,6 +18,7 @@ namespace DevFreela.Application.ViewModels
             FinishedAt = finishedAt;
             ClientFullName = clientFullName;
             FreelancerFullName = freelancerFullName;
+            Status = status;
         }
 
         public int Id { get; private set; }
@@ -26,5 +29,7 @@ namespace DevFreela.Application.ViewModels
         public decimal TotalCost { get; private set; }
         public DateTime? StartedAt { get; private set; }
         public DateTime? FinishedAt { get; private set; }
+        
+        public ProjectStatusEnum Status { get; private set; }
     }
 }

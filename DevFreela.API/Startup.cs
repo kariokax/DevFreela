@@ -15,6 +15,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using DevFreela.Application.Commands.CreateProject;
 using MediatR;
@@ -42,6 +43,10 @@ namespace DevFreela.API
 
 
             services.AddControllers();
+            services.AddControllers().AddJsonOptions(x =>
+            {
+                x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
 
             /*irá buscar por todos o assembly do projeto aonde está o CreateProjectCommand, todas as classes que implementem o IRequest
             e associalos a todas as classes que implementem IRequestHandler*/
