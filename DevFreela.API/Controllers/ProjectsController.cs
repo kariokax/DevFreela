@@ -12,6 +12,8 @@ using DevFreela.Application.Commands.CreateComment;
 using DevFreela.Application.Commands.CreateProject;
 using DevFreela.Application.Commands.DeleteProject;
 using DevFreela.Application.Commands.FinishProject;
+using DevFreela.Application.Commands.GetAll;
+using DevFreela.Application.Commands.GetById;
 using DevFreela.Application.Commands.StartProject;
 using DevFreela.Application.Commands.UpdateProject;
 using MediatR;
@@ -31,18 +33,20 @@ namespace DevFreela.API.Controllers
 
         // api/projects?query=net core
         [HttpGet]
-        public IActionResult Get(string query)
+        public async Task<IActionResult> Get()
         {
-            var projects = _projectService.GetAll(query);
+            var command = new GetAllCommand();
+            var projects = await _mediator.Send(command);
 
             return Ok(projects);
         }
 
         // api/projects/2
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var project = _projectService.GetById(id);
+            var command = new GetByIdCommand(id);
+            var project = await _mediator.Send(command);
 
             if (project == null)
             {
