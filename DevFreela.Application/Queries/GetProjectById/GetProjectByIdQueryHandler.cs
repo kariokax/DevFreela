@@ -6,18 +6,18 @@ using DevFreela.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevFreela.Application.Commands.GetById
+namespace DevFreela.Application.Queries.GetProjectById
 {
-    public class GetByIdCommandHandler : IRequestHandler<GetByIdCommand,ProjectDetailsViewModel>
+    public class GetProjectByIdQueryHandler : IRequestHandler<GetProjectByIdQuery,ProjectDetailsViewModel>
     {
         private readonly DevFreelaDbContext _dbContext;
         
-        public GetByIdCommandHandler(DevFreelaDbContext dbContext)
+        public GetProjectByIdQueryHandler(DevFreelaDbContext dbContext)
         {
             _dbContext = dbContext;
         }
         
-        public async Task<ProjectDetailsViewModel> Handle(GetByIdCommand request, CancellationToken cancellationToken)
+        public async Task<ProjectDetailsViewModel> Handle(GetProjectByIdQuery request, CancellationToken cancellationToken)
         {
             var project = await _dbContext.Projects
                 .Include(p => p.Client)

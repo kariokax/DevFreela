@@ -12,10 +12,10 @@ using DevFreela.Application.Commands.CreateComment;
 using DevFreela.Application.Commands.CreateProject;
 using DevFreela.Application.Commands.DeleteProject;
 using DevFreela.Application.Commands.FinishProject;
-using DevFreela.Application.Commands.GetAll;
-using DevFreela.Application.Commands.GetById;
 using DevFreela.Application.Commands.StartProject;
 using DevFreela.Application.Commands.UpdateProject;
+using DevFreela.Application.Queries.GetAllProjects;
+using DevFreela.Application.Queries.GetProjectById;
 using MediatR;
 
 namespace DevFreela.API.Controllers
@@ -23,20 +23,18 @@ namespace DevFreela.API.Controllers
     [Route("api/projects")]
     public class ProjectsController : ControllerBase
     {
-        private readonly IProjectService _projectService;
         private readonly IMediator _mediator;
-        public ProjectsController(IProjectService projectService, IMediator mediator)
+        public ProjectsController(IMediator mediator)
         {
-            _projectService = projectService;
             _mediator = mediator;
         }
 
         // api/projects?query=net core
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(string query)
         {
-            var command = new GetAllCommand();
-            var projects = await _mediator.Send(command);
+            var gatAll = new GetAllProjectQuery(query);
+            var projects = await _mediator.Send(gatAll);
 
             return Ok(projects);
         }
@@ -45,8 +43,8 @@ namespace DevFreela.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var command = new GetByIdCommand(id);
-            var project = await _mediator.Send(command);
+            var query = new GetProjectByIdQuery(id);
+            var project = await _mediator.Send(query);
 
             if (project == null)
             {
