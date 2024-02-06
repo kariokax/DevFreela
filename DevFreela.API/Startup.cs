@@ -18,6 +18,8 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using DevFreela.Application.Commands.CreateProject;
+using DevFreela.Core.Repositories;
+using DevFreela.Infrastructure.Persistence.Repositories;
 using MediatR;
 
 namespace DevFreela.API
@@ -38,6 +40,8 @@ namespace DevFreela.API
                     options => options.UseSqlServer(Configuration.GetConnectionString("DevFreelaCs")));
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ISkillsRepository, SkillRepository>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
 
 
             services.AddControllers();
